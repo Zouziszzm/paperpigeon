@@ -23,7 +23,7 @@ const Header = () => {
                     href="/"
                   >
                     {" "}
-                    About{" "}
+                    Home{" "}
                   </a>
                 </li>
 
@@ -33,7 +33,7 @@ const Header = () => {
                     href="/"
                   >
                     {" "}
-                    Careers{" "}
+                    Upload{" "}
                   </a>
                 </li>
 
@@ -43,7 +43,7 @@ const Header = () => {
                     href="/"
                   >
                     {" "}
-                    History{" "}
+                    About Us{" "}
                   </a>
                 </li>
 
@@ -53,27 +53,7 @@ const Header = () => {
                     href="/"
                   >
                     {" "}
-                    Services{" "}
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    {" "}
-                    Projects{" "}
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
-                  >
-                    {" "}
-                    Blog{" "}
+                    Contact us{" "}
                   </a>
                 </li>
               </ul>
@@ -85,14 +65,7 @@ const Header = () => {
                   className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#DED0B6]"
                   href="/"
                 >
-                  Login
-                </a>
-
-                <a
-                  className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                  href="/"
-                >
-                  Register
+                  Get Started
                 </a>
               </div>
 
