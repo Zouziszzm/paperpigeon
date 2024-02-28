@@ -3,7 +3,7 @@ import React from "react";
 
 function layout({ children }) {
   return (
-    <div className="flex">
+    <div>
       <Sidebar />
       {children}
     </div>
