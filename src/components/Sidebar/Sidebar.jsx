@@ -54,7 +54,7 @@ const Sidebar = () => {
         {tabItems.map((item, idx) => (
           <Tabs.Content key={idx} className="py-6" value={item.name}>
             <p className="text-xs leading-normal">
-              This is <b>{item.name}</b> Tab
+              This is <b>{item.name}</b> Tab containing the items to put in here.
             </p>
           </Tabs.Content>
         ))}
