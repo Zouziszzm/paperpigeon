@@ -5,11 +5,11 @@ const Upload = () => {
         <p className="text-base text-center p-2">
           Start <b className="text-primary">Uploading</b> File and <b className="text-primary">Share</b> It
         </p>
-        <div>
+        <div className="px-4 md:max-w-[50%] mx-auto my-4">
           <div class="flex items-center justify-center w-full">
             <label
               for="dropzone-file"
-              class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+              class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-transparent  hover:bg-gray-50/50"
             >
               <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg

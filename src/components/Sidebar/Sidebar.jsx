@@ -1,6 +1,6 @@
-"use client";
+"use client"
+import React, { useState, useEffect } from "react";
 import { UserButton, SignOutButton } from "@clerk/nextjs";
-import React from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { LuHardDriveUpload } from "react-icons/lu";
 import { LuFileStack } from "react-icons/lu";
@@ -9,6 +9,7 @@ import { VscSignOut } from "react-icons/vsc";
 import Upload from "../Upload/Upload";
 import Files from "../Files/Files";
 import Upgrade from "../Upgrade/Upgrade";
+
 const Sidebar = () => {
   const tabItems = [
     {
@@ -23,15 +24,30 @@ const Sidebar = () => {
     },
     {
       icon: <GrUpgrade />,
-      name: "Upgrad",
+      name: "Upgrade",
       refers: Upgrade,
     },
   ];
+
+  const [showNames, setShowNames] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShowNames(window.innerWidth >= 480); // Adjust the threshold as needed
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       <Tabs.Root className="w-full mx-auto p-2" defaultValue="Upload">
         <Tabs.List
-          className="w-full border-b flex justify-between items-center gap-x-3 overflow-x-auto text-sm px-4"
+          className="w-full border-b flex justify-between items-center gap-x-3 overflow-x-auto text-sm md:px-4"
           aria-label="Manage your own account"
         >
           <div className="p-1">
@@ -39,7 +55,7 @@ const Sidebar = () => {
               <UserButton />
             </div>
           </div>
-          <div>
+          <div className="flex sm:px-8">
             {tabItems.map((item, idx) => (
               <Tabs.Trigger
                 key={idx}
@@ -48,10 +64,10 @@ const Sidebar = () => {
               >
                 <div
                   className={`
-                  flex items-center gap-x-2 py-1.5 px-3 rounded-lg duration-150 group-hover:text-indigo-600 group-hover:bg-gray-50 group-active:bg-gray-100 font-medium`}
+    flex items-center gap-x-2 py-1.5 px-3 rounded-lg duration-150 group-hover:text-indigo-600 group-hover:bg-gray-50 group-active:bg-gray-100 font-medium`}
                 >
                   {item.icon}
-                  {item.name}
+                  {showNames && item.name}
                 </div>
               </Tabs.Trigger>
             ))}
@@ -77,3 +93,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
