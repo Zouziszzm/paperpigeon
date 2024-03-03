@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { UserButton, SignOutButton } from "@clerk/nextjs";
 import * as Tabs from "@radix-ui/react-tabs";
 import { LuHardDriveUpload } from "react-icons/lu";
@@ -9,6 +10,7 @@ import { VscSignOut } from "react-icons/vsc";
 import Upload from "../Upload/Upload";
 import Files from "../Files/Files";
 import Upgrade from "../Upgrade/Upgrade";
+import Link from "next/link";
 
 const Sidebar = () => {
   const tabItems = [
@@ -45,9 +47,15 @@ const Sidebar = () => {
 
   return (
     <>
-      <Tabs.Root className="w-full mx-auto p-2" defaultValue="Upload">
+      <div className="w-full flex justify-center p-2 ">
+        <Link href="/" className=" flex items-center justify-center">
+          <Image src="/Origami_b.svg" height={50} width={50} alt="Logo" />
+          <p className="text-base font-sans font-semibold text-primary">Paper Pigeons</p>
+        </Link>
+      </div>
+      <Tabs.Root className="w-full mx-auto p-2 px-4" defaultValue="Upload">
         <Tabs.List
-          className="w-full border-b flex justify-between items-center gap-x-3 overflow-x-auto text-sm md:px-4"
+          className="w-full  flex justify-between items-center gap-x-3 overflow-x-auto text-sm"
           aria-label="Manage your own account"
         >
           <div className="p-1">
@@ -55,7 +63,7 @@ const Sidebar = () => {
               <UserButton />
             </div>
           </div>
-          <div className="flex sm:px-8">
+          <div className="flex gap-2 sm:px-8">
             {tabItems.map((item, idx) => (
               <Tabs.Trigger
                 key={idx}
@@ -93,4 +101,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
