@@ -1,12 +1,18 @@
 import React, { useState, useRef } from "react";
-import { motion } from "framer-motion";
-import { IoCloudUploadOutline, IoWarningOutline, IoClose } from "react-icons/io5";
+import { motion, progress } from "framer-motion";
+import {
+  IoCloudUploadOutline,
+  IoWarningOutline,
+  IoClose,
+} from "react-icons/io5";
 import { app } from "../../../firebaseConfig";
 import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import Progress from "../Progressbar/Progress";
 
 const Upload = () => {
   const [fileinfo, setFileinfo] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [progress, setProgress] = useState();
   const storage = getStorage(app);
   const fileinfoRef = useRef();
 
@@ -18,10 +24,13 @@ const Upload = () => {
     const fileref = ref(storage, "Paper-pigeon/" + fileinfo.name);
     const uploadTask = uploadBytesResumable(fileref, fileinfo, metadata);
 
-    uploadTask.on("state_changed", 
+    uploadTask.on(
+      "state_changed",
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
+        setProgress(progress);
       },
       (error) => {
         console.error("Error uploading file: ", error);
@@ -32,7 +41,7 @@ const Upload = () => {
         console.log("Upload completed successfully");
         setShowAlert(false);
         // You can add further logic here if needed
-      }
+      },
     );
   };
 
@@ -90,34 +99,48 @@ const Upload = () => {
             </label>
           </div>
         </div>
-        <div className="w-full flex justify-center">
-          <button
-            disabled={!fileinfo}
-            className="group relative rounded-md inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring disabled:bg-gray-100 disabled:cursor-not-allowed"
-            onClick={uploadfile}
-          >
-            <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500/80 group-disabled:bg-gray-100"></span>
-            <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white group-disabled:text-indigo-600">
-              Upload
-            </span>
-          </button>
-        </div>
       </div>
-      {fileinfo && (
-        <div className="flex items-center justify-center mt-4">
-          <div className="p-2 flex items-center border-primary border-[1px] rounded-lg gap-2">
-            <button
-              onClick={removeFile}
-              className="ml-2 text-red-500 hover:text-red-700"
-            >
-              <IoClose />
-            </button>
-            <span className="text-sm font-medium text-gray-500">
-              {fileinfo.name}
-            </span>
+      <div className="p-4 mx-auto">
+        {progress > 0 ? (
+          <div className="w-[95%] md:w-[70%] mx-auto">
+            <Progress progress={progress} />
+            <p className="text-center text-sm font-mono text-primary p-2">
+              {progress}%
+            </p>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="w-full flex justify-center">
+            <button
+              disabled={!fileinfo}
+              className="group relative rounded-md inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring disabled:bg-gray-100 disabled:cursor-not-allowed"
+              onClick={uploadfile}
+            >
+              <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500/80 group-disabled:bg-gray-100"></span>
+              <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white group-disabled:text-indigo-600">
+                Upload
+              </span>
+            </button>
+          </div>
+        )}
+      </div>
+      <div>
+        <p className="text-center text-primary">File Preview</p>
+        {fileinfo && (
+          <div className="flex items-center justify-center mt-4">
+            <div className="p-2 flex items-center border-primary border-[1px] rounded-lg gap-2">
+              <button
+                onClick={removeFile}
+                className="ml-2 text-red-500 hover:text-red-700"
+              >
+                <IoClose />
+              </button>
+              <span className="text-sm font-medium text-gray-500">
+                {fileinfo.name}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
       {showAlert && (
         <motion.div
           role="alert"
@@ -144,4 +167,3 @@ const Upload = () => {
 };
 
 export default Upload;
-

@@ -47,7 +47,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="w-full flex justify-center p-2 ">
+      <div className="w-full flex justify-center p-2 border-b-primary border-b-[1px]">
         <Link href="/" className=" flex items-center justify-center">
           <Image src="/Origami_b.svg" height={50} width={50} alt="Logo" />
           <p className="text-base font-sans font-semibold text-primary">Paper Pigeons</p>
