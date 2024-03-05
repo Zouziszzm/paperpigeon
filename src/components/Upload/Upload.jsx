@@ -1,19 +1,32 @@
 import React, { useState, useRef } from "react";
-import { motion, progress } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   IoCloudUploadOutline,
   IoWarningOutline,
   IoClose,
+  IoCheckmarkOutline,
 } from "react-icons/io5";
 import { app } from "../../../firebaseConfig";
-import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { getFirestore, setDoc, doc } from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import Progress from "../Progressbar/Progress";
+import { useUser } from "@clerk/nextjs";
+import { Genstring } from "@/_utils/Randomstrgen";
 
 const Upload = () => {
+  const { user } = useUser();
   const [fileinfo, setFileinfo] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [progress, setProgress] = useState();
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const storage = getStorage(app);
+  const db = getFirestore(app);
   const fileinfoRef = useRef();
 
   const uploadfile = () => {
@@ -31,30 +44,51 @@ const Upload = () => {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
         setProgress(progress);
+        progress == 100 &&
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            saveInfo(fileinfo, downloadURL);
+          });
       },
       (error) => {
         console.error("Error uploading file: ", error);
         setShowAlert(true);
+        setShowErrorAlert(true); // Set showErrorAlert to true
         setFileinfo(null);
       },
       () => {
         console.log("Upload completed successfully");
         setShowAlert(false);
-        // You can add further logic here if needed
+        setShowSuccessAlert(true); // Set showSuccessAlert to true
       },
     );
   };
-
   const onFileselect = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.size > 2000000) {
       setShowAlert(true);
+      setShowErrorAlert(true);
       setFileinfo(null);
     } else {
       setShowAlert(false);
+      setShowErrorAlert(false);
       setFileinfo(selectedFile);
       fileinfoRef.current = selectedFile;
     }
+  };
+
+  const saveInfo = async (fileinfo, downloadURL) => {
+    const docid = Date.now().toString();
+    await setDoc(doc(db, "uploadedFile", docid), {
+      fileName: fileinfo?.name,
+      fileSzie: fileinfo?.size,
+      fileType: fileinfo?.type,
+      fileUrl: downloadURL,
+      userEmail: user?.primaryEmailAddress.emailAddress,
+      userName: user?.fullName,
+      password: "",
+      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + Genstring(),
+    });
   };
 
   const hideAlert = () => {
@@ -144,7 +178,7 @@ const Upload = () => {
       {showAlert && (
         <motion.div
           role="alert"
-          className="fixed top-16 right-8 rounded border-s-4 border-red-500 bg-red-50 p-4"
+          className="fixed top-16 right-8 rounded border-s-4 border-red-500 bg-red-50 p-4 z-10"
           initial={{ opacity: 1 }}
           animate={{ opacity: 0 }}
           transition={{ duration: 4 }}
@@ -159,6 +193,45 @@ const Upload = () => {
 
           <p className="mt-2 text-sm text-red-700">
             The file size exceeds 2 MB. Please upload a smaller file.
+          </p>
+        </motion.div>
+      )}
+      {showSuccessAlert && (
+        <motion.div
+          role="alert"
+          className="fixed top-16 right-8 rounded border-s-4 border-green-500 bg-green-50 p-4 z-10"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 4 }}
+        >
+          <div className="flex items-center gap-2 text-green-800">
+            <IoCheckmarkOutline className="h-5 w-5" />
+            <strong className="block font-medium"> Success! </strong>
+          </div>
+
+          <p className="mt-2 text-sm text-green-700">
+            File uploaded successfully.
+          </p>
+        </motion.div>
+      )}
+      {showErrorAlert && (
+        <motion.div
+          role="alert"
+          className="fixed top-16 right-8 rounded border-s-4 border-red-500 bg-red-50 p-4"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 4 }}
+        >
+          <div className="flex items-center gap-2 text-red-800">
+            <IoWarningOutline className="h-5 w-5" />
+            <strong className="block font-medium">
+              {" "}
+              Something went wrong{" "}
+            </strong>
+          </div>
+
+          <p className="mt-2 text-sm text-red-700">
+            Error uploading file. Please try again.
           </p>
         </motion.div>
       )}
