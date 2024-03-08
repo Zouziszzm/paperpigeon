@@ -8,6 +8,7 @@ import { LuFileStack } from "react-icons/lu";
 import { GrUpgrade } from "react-icons/gr";
 import { VscSignOut } from "react-icons/vsc";
 import Upload from "../Upload/Upload";
+import preview from "@/app/(mono)/(routes)/(Dashboard)/filepreview/[fileid]/page";
 import Files from "../Files/Files";
 import Upgrade from "../Upgrade/Upgrade";
 import Link from "next/link";
@@ -18,6 +19,11 @@ const Sidebar = () => {
       icon: <LuHardDriveUpload />,
       name: "Upload",
       refers: Upload,
+    },
+    {
+      icon: <GrUpgrade />,
+      name: "preview",
+      refers: preview,
     },
     {
       icon: <LuFileStack />,
@@ -50,7 +56,9 @@ const Sidebar = () => {
       <div className="w-full flex justify-center p-2 border-b-primary border-b-[1px]">
         <Link href="/" className=" flex items-center justify-center">
           <Image src="/Origami_b.svg" height={50} width={50} alt="Logo" />
-          <p className="text-base font-sans font-semibold text-primary">Paper Pigeons</p>
+          <p className="text-base font-sans font-semibold text-primary">
+            Paper Pigeons
+          </p>
         </Link>
       </div>
       <Tabs.Root className="w-full mx-auto p-2 px-4" defaultValue="Upload">

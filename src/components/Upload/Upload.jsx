@@ -81,13 +81,14 @@ const Upload = () => {
     const docid = Date.now().toString();
     await setDoc(doc(db, "uploadedFile", docid), {
       fileName: fileinfo?.name,
-      fileSzie: fileinfo?.size,
+      fileSize: fileinfo?.size,
       fileType: fileinfo?.type,
       fileUrl: downloadURL,
       userEmail: user?.primaryEmailAddress.emailAddress,
       userName: user?.fullName,
       password: "",
-      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + Genstring(),
+      id: docid,
+      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docid,
     });
   };
 
@@ -133,108 +134,112 @@ const Upload = () => {
             </label>
           </div>
         </div>
-      </div>
-      <div className="p-4 mx-auto">
-        {progress > 0 ? (
-          <div className="w-[95%] md:w-[70%] mx-auto">
-            <Progress progress={progress} />
-            <p className="text-center text-sm font-mono text-primary p-2">
-              {progress}%
-            </p>
-          </div>
-        ) : (
-          <div className="w-full flex justify-center">
-            <button
-              disabled={!fileinfo}
-              className="group relative rounded-md inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring disabled:bg-gray-100 disabled:cursor-not-allowed"
-              onClick={uploadfile}
-            >
-              <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500/80 group-disabled:bg-gray-100"></span>
-              <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white group-disabled:text-indigo-600">
-                Upload
-              </span>
-            </button>
-          </div>
-        )}
-      </div>
-      <div>
-        <p className="text-center text-primary">File Preview</p>
         {fileinfo && (
-          <div className="flex items-center justify-center mt-4">
-            <div className="p-2 flex items-center border-primary border-[1px] rounded-lg gap-2">
-              <button
-                onClick={removeFile}
-                className="ml-2 text-red-500 hover:text-red-700"
-              >
-                <IoClose />
-              </button>
-              <span className="text-sm font-medium text-gray-500">
-                {fileinfo.name}
-              </span>
-            </div>
+          <div className="p-4 mx-auto">
+            {progress > 0 ? (
+              <div className="w-[95%] md:w-[70%] mx-auto">
+                <Progress progress={progress} />
+                <p className="text-center text-sm font-mono text-primary p-2">
+                  {progress}%
+                </p>
+              </div>
+            ) : (
+              <div className="w-full flex justify-center">
+                <button
+                  disabled={!fileinfo}
+                  className="group relative rounded-md inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  onClick={uploadfile}
+                >
+                  <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500/80 group-disabled:bg-gray-100"></span>
+                  <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white group-disabled:text-indigo-600">
+                    Upload
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
         )}
+        {fileinfo && (
+          <div>
+            <p className="text-center text-primary">File Preview</p>
+            {fileinfo && (
+              <div className="flex items-center justify-center mt-4">
+                <div className="p-2 flex items-center border-primary border-[1px] rounded-lg gap-2">
+                  <button
+                    onClick={removeFile}
+                    className="ml-2 text-red-500 hover:text-red-700"
+                  >
+                    <IoClose />
+                  </button>
+                  <span className="text-sm font-medium text-gray-500">
+                    {fileinfo.name}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {showAlert && (
+          <motion.div
+            role="alert"
+            className="fixed top-16 right-8 rounded border-s-4 border-red-500 bg-red-50 p-4 z-10"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 4 }}
+          >
+            <div className="flex items-center gap-2 text-red-800">
+              <IoWarningOutline className="h-5 w-5" />
+              <strong className="block font-medium">
+                {" "}
+                Something went wrong{" "}
+              </strong>
+            </div>
+
+            <p className="mt-2 text-sm text-red-700">
+              The file size exceeds 2 MB. Please upload a smaller file.
+            </p>
+          </motion.div>
+        )}
+        {showSuccessAlert && (
+          <motion.div
+            role="alert"
+            className="fixed top-16 right-8 rounded border-s-4 border-green-500 bg-green-50 p-4 z-10"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 4 }}
+          >
+            <div className="flex items-center gap-2 text-green-800">
+              <IoCheckmarkOutline className="h-5 w-5" />
+              <strong className="block font-medium"> Success! </strong>
+            </div>
+
+            <p className="mt-2 text-sm text-green-700">
+              File uploaded successfully.
+            </p>
+          </motion.div>
+        )}
+        {showErrorAlert && (
+          <motion.div
+            role="alert"
+            className="fixed top-16 right-8 rounded border-s-4 border-red-500 bg-red-50 p-4"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 4 }}
+          >
+            <div className="flex items-center gap-2 text-red-800">
+              <IoWarningOutline className="h-5 w-5" />
+              <strong className="block font-medium">
+                {" "}
+                Something went wrong{" "}
+              </strong>
+            </div>
+
+            <p className="mt-2 text-sm text-red-700">
+              Error uploading file. Please try again.
+            </p>
+          </motion.div>
+        )}
       </div>
-      {showAlert && (
-        <motion.div
-          role="alert"
-          className="fixed top-16 right-8 rounded border-s-4 border-red-500 bg-red-50 p-4 z-10"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 4 }}
-        >
-          <div className="flex items-center gap-2 text-red-800">
-            <IoWarningOutline className="h-5 w-5" />
-            <strong className="block font-medium">
-              {" "}
-              Something went wrong{" "}
-            </strong>
-          </div>
-
-          <p className="mt-2 text-sm text-red-700">
-            The file size exceeds 2 MB. Please upload a smaller file.
-          </p>
-        </motion.div>
-      )}
-      {showSuccessAlert && (
-        <motion.div
-          role="alert"
-          className="fixed top-16 right-8 rounded border-s-4 border-green-500 bg-green-50 p-4 z-10"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 4 }}
-        >
-          <div className="flex items-center gap-2 text-green-800">
-            <IoCheckmarkOutline className="h-5 w-5" />
-            <strong className="block font-medium"> Success! </strong>
-          </div>
-
-          <p className="mt-2 text-sm text-green-700">
-            File uploaded successfully.
-          </p>
-        </motion.div>
-      )}
-      {showErrorAlert && (
-        <motion.div
-          role="alert"
-          className="fixed top-16 right-8 rounded border-s-4 border-red-500 bg-red-50 p-4"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 4 }}
-        >
-          <div className="flex items-center gap-2 text-red-800">
-            <IoWarningOutline className="h-5 w-5" />
-            <strong className="block font-medium">
-              {" "}
-              Something went wrong{" "}
-            </strong>
-          </div>
-
-          <p className="mt-2 text-sm text-red-700">
-            Error uploading file. Please try again.
-          </p>
-        </motion.div>
-      )}
     </>
   );
 };
