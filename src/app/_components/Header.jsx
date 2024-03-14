@@ -16,7 +16,6 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <a className="block text-teal-600" href="#">
-              <span className="sr-only">Home</span>
               <Image
                 className=""
                 src="/Origami_b.svg"
