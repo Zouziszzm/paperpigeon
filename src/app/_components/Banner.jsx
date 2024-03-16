@@ -14,8 +14,7 @@ const Banner = () => {
             </h1>
 
             <p className="mt-4 sm:text-xl/relaxed">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt
-              illo tenetur fuga ducimus numquam ea!
+              Drag and Drop your file directly on our Cloud and share it with any friends secuarly with password and send it on email
             </p>
 
             <div className="mt-8 flex flex-wrap justify-center gap-4">

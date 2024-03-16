@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from 'next/link'
 import { useState } from "react";
 const Header = () => {
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(true);
   const handelmenu = () => {
     if (!menu) {
       setMenu(true);
