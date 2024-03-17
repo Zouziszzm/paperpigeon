@@ -1,9 +1,12 @@
-import React from 'react'
-
+import React from "react";
+import { UserButton } from "@clerk/nextjs";
 const Files = () => {
   return (
-    <div>Files</div>
-  )
-}
+    <>
+      <UserButton />
+      <div>Files</div>
+    </>
+  );
+};
 
-export default Files
+export default Files;
