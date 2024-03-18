@@ -12,10 +12,11 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import Progressbar from "../../_components/Progressbar";
+import Success from "../../_components/Success";
 const Upload = () => {
   const [fileSizeExceed, setFileSizeExceed] = useState(false);
   const [file, setFile] = useState(null);
-  const [progress, setProgress] = useState(0); // Initialize progress state
+  const [progress, setProgress] = useState(0);
   const storage = getStorage(app);
   const metadata = {
     contentType: "file.type",
@@ -59,6 +60,9 @@ const Upload = () => {
   return (
     <>
       {fileSizeExceed && <AlertMsg />}
+      {progress === 100 ? (
+        <Success />
+      ) : progress === 0 ? null : null }
       <div className="w-[90%] md:w-[70%] mx-auto h-fit">
         <div>
           <div className="inset-x-0 bottom-0 p-4">
