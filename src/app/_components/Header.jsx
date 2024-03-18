@@ -66,7 +66,7 @@ const Header = () => {
                 <div className="sm:flex">
                   <Link
                     className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
-                    href="#"
+                    href="/upload"
                   >
                     Get Started
                   </Link>
@@ -103,7 +103,7 @@ const Header = () => {
                           href="#"
                           className="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
                         >
-                          General
+                          Home
                         </Link>
                       </li>
 
@@ -112,7 +112,7 @@ const Header = () => {
                           href="#"
                           className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                         >
-                          Teams
+                          About
                         </Link>
                       </li>
 
@@ -121,7 +121,7 @@ const Header = () => {
                           href="#"
                           className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                         >
-                          Billing
+                          Contact Us
                         </Link>
                       </li>
                     </ul>
