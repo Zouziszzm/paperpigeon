@@ -1,7 +1,9 @@
+import Smenu from "./_components/Smenu";
+
 const layout = ({ children }) => {
   return (
     <>
-      <h2>Home</h2>
+      <Smenu/>
       <div>{children}</div>
     </>
   );

@@ -3,7 +3,6 @@ import { UserButton } from "@clerk/nextjs";
 const Files = () => {
   return (
     <>
-      <UserButton />
       <div>Files</div>
     </>
   );
