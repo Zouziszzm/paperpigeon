@@ -4,12 +4,15 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { app } from "../../../../../../firbaseConfig";
 import { MdOutlineContentCopy } from "react-icons/md";
 import Image from "next/image";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 const Filepreview = ({ params }) => {
   const db = getFirestore(app);
   const [file, setFile] = useState();
   const [placeholderText, setPlaceholderText] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
+  const [enablePassword, setEnablePassword] = useState(false); // State to manage enable/disable password input
 
   useEffect(() => {
     params?.fileId && getfileinfo();
@@ -22,6 +25,7 @@ const Filepreview = ({ params }) => {
       setFile(docSnap.data());
       // Set the placeholder text here
       setPlaceholderText(docSnap.data().fileName); // or any other property you want to use
+      setEnablePassword(docSnap.data().enablePassword); // Set enablePassword state
     } else {
       console.log("No such document!");
     }
@@ -112,7 +116,6 @@ const Filepreview = ({ params }) => {
               <div className="">
                 <fieldset className="p-2">
                   <legend className="sr-only">Checkboxes</legend>
-
                   <div className="space-y-2">
                     <label
                       htmlFor="Option1"
@@ -124,9 +127,10 @@ const Filepreview = ({ params }) => {
                           type="checkbox"
                           className="size-4 rounded border-gray-300"
                           id="Option1"
+                          checked={enablePassword}
+                          onChange={(e) => setEnablePassword(e.target.checked)}
                         />
                       </div>
-
                       <div>
                         <strong className="font-medium text-gray-900">
                           {" "}
@@ -136,20 +140,37 @@ const Filepreview = ({ params }) => {
                     </label>
                   </div>
                 </fieldset>
-
-                <div className="flex w-full relative justify-between">
-                  <input
-                    type="text"
-                    placeholder={file.shortUrl}
-                    className="my-1 p-4 w-[85%]  rounded-md border-[1px] border-gray-200 sm:text-sm"
-                  />
-                  <button onClick={copyPlaceholderText} className="text-xl flex items-center">
+                <div className="flex w-full relative gap-2 justify-between">
+                  <div className="flex w-full justify-between rounded-md border-[1px] border-gray-200 px-2 relative">
+                    <input
+                      type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                      placeholder="Enter password"
+                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                      title="Password must contain at least one digit, one uppercase and one lowercase letter, and be at least 8 characters long"
+                      className={`my-1 w-[85%] rounded-md  p-2 sm:text-sm ${!enablePassword ? "opacity-50 cursor-not-allowed" : ""}`}
+                      disabled={!enablePassword}
+                    />
+                    <button
+                      onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                      className="text-xl"
+                    >
+                      {showPassword ? (
+                        <FaRegEyeSlash className="text-gray-400 hover:text-gray-800" />
+                      ) : (
+                        <FaRegEye className="text-gray-400 hover:text-gray-800" />
+                      )}
+                    </button>
+                  </div>
+                  <button
+                    onClick={copyPlaceholderText}
+                    className={`text-xl flex items-center ${!enablePassword ? "opacity-50 cursor-not-allowed" : ""}`}
+                    disabled={!enablePassword}
+                  >
                     <a
                       className="group relative inline-block overflow-hidden border border-indigo-600 px-6 py-3 rounded-md"
                       href="#"
                     >
                       <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
-
                       <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white">
                         save
                       </span>
@@ -159,6 +180,39 @@ const Filepreview = ({ params }) => {
               </div>
             </>
           )}
+
+          <div>
+            <div className="p-2">
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="UserEmail"
+                  className="block font-medium text-gray-700 p-2"
+                >
+                  Short Url
+                </label>
+
+                <div className="flex w-full rounded-md border-[1px] border-gray-200 relative">
+                  <input
+                    type="text"
+                    placeholder=""
+                    className="my-1 p-2 w-full bg-transparent  sm:text-sm"
+                  />
+                </div>
+                <div>
+                  <a
+                    className="group relative rounded-md inline-block overflow-hidden w-full border border-indigo-600 px-8 py-3 focus:outline-none focus:ring"
+                    href="#"
+                  >
+                    <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
+
+                    <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white">
+                      <p className="text-center">Send Email</p>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
