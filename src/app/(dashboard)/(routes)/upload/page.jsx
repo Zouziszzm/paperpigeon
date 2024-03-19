@@ -2,9 +2,12 @@
 import React, { useState } from "react";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
-import { FileInput, Label, Progress } from "flowbite-react";
+import { FileInput, Label } from "flowbite-react";
 import AlertMsg from "../../_components/Alert";
 import { app } from "../../../../../firbaseConfig";
+import { getFirestore } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
+import { doc, setDoc } from "firebase/firestore";
 import {
   getStorage,
   ref,
@@ -13,13 +16,24 @@ import {
 } from "firebase/storage";
 import Progressbar from "../../_components/Progressbar";
 import Success from "../../_components/Success";
+import { randomStringGenerator } from "@/app/_utils/Randomstring";
+import { useRouter } from "next/navigation"; // Import the useRouter hook
+
 const Upload = () => {
   const [fileSizeExceed, setFileSizeExceed] = useState(false);
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
+  const router = useRouter(); // Initialize the useRouter hook
   const storage = getStorage(app);
+  const db = getFirestore(app);
+  const { user } = useUser();
   const metadata = {
     contentType: "file.type",
+  };
+  const docid = randomStringGenerator().toString();
+
+  const handleUploadSuccess = (docid) => {
+    router.push(`/file-preview/${docid}`);
   };
 
   const upploadbtnclick = (file) => {
@@ -27,8 +41,35 @@ const Upload = () => {
     const uploadTask = uploadBytesResumable(storageRef, file, metadata);
     uploadTask.on("state_changed", (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      setProgress(progress);
       console.log("Upload is " + progress + "% done");
+      setProgress(progress);
+      if (progress === 100) {
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            saveinfo(file, downloadURL);
+            handleUploadSuccess(docid); // Call the function to redirect with docid
+          })
+          .catch((error) => {
+            console.error("Error getting download URL:", error);
+          });
+      }
+    });
+  };
+
+  const saveinfo = async (file, downloadURL) => {
+    await setDoc(doc(db, "uploadedFile", docid), {
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type,
+      fileUrl: downloadURL,
+      userEmail: user.primaryEmailAddress.emailAddress,
+      userName: user.fullName,
+      password: "",
+      id: docid,
+      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docid,
+    }).then((resp) => {
+      console.log(resp);
     });
   };
 
@@ -60,9 +101,7 @@ const Upload = () => {
   return (
     <>
       {fileSizeExceed && <AlertMsg />}
-      {progress === 100 ? (
-        <Success />
-      ) : progress === 0 ? null : null }
+      {progress === 100 ? <Success /> : progress === 0 ? null : null}
       <div className="w-[90%] md:w-[70%] mx-auto h-fit">
         <div>
           <div className="inset-x-0 bottom-0 p-4">
