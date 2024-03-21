@@ -134,7 +134,7 @@ const Filepreview = ({ params }) => {
                       <div>
                         <strong className="font-medium text-gray-900">
                           {" "}
-                          Enable Password ?{" "}
+                          Do you want to Enable Password ?{" "}
                         </strong>
                       </div>
                     </label>
