@@ -1,6 +1,7 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { app } from "../../../../../../firbaseConfig";
 import { MdOutlineContentCopy } from "react-icons/md";
 import Image from "next/image";
@@ -11,8 +12,9 @@ const Filepreview = ({ params }) => {
   const [file, setFile] = useState();
   const [placeholderText, setPlaceholderText] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
-  const [enablePassword, setEnablePassword] = useState(false); // State to manage enable/disable password input
+  const [showPassword, setShowPassword] = useState(false);
+  const [enablePassword, setEnablePassword] = useState(false);
+  const [password, setPassword] = useState(""); // State to manage password input
 
   useEffect(() => {
     params?.fileId && getfileinfo();
@@ -23,9 +25,8 @@ const Filepreview = ({ params }) => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       setFile(docSnap.data());
-      // Set the placeholder text here
-      setPlaceholderText(docSnap.data().fileName); // or any other property you want to use
-      setEnablePassword(docSnap.data().enablePassword); // Set enablePassword state
+      setPlaceholderText(docSnap.data().fileName);
+      setEnablePassword(docSnap.data().enablePassword);
     } else {
       console.log("No such document!");
     }
@@ -33,10 +34,31 @@ const Filepreview = ({ params }) => {
 
   const copyPlaceholderText = () => {
     navigator.clipboard.writeText(placeholderText);
-    setShowAlert(true); // Show alert when text is copied
+    setShowAlert(true);
     setTimeout(() => {
-      setShowAlert(false); // Hide alert after 3 seconds
+      setShowAlert(false);
     }, 3000);
+  };
+
+  const saveinfo = async (file, downloadURL, password) => {
+    const fileInfo = {
+      fileName: file.name,
+      fileSize: file.size,
+      fileType: file.type,
+      fileUrl: downloadURL,
+      userEmail: user.primaryEmailAddress.emailAddress,
+      userName: user.fullName,
+      id: docid,
+      shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docid,
+    };
+
+    if (enablePassword) {
+      fileInfo.password = password;
+    }
+
+    await setDoc(doc(db, "uploadedFile", docid), fileInfo).then((resp) => {
+      console.log(resp);
+    });
   };
 
   return (
@@ -58,7 +80,6 @@ const Filepreview = ({ params }) => {
               </div>
             </>
           )}
-          {console.log(file)}
         </div>
         <div className="h-full rounded-lg bg-gray-200/10 border-[1px] border-gray-200 p-4">
           {file && file.shortUrl && file.fileName && file.fileType && (
@@ -143,15 +164,16 @@ const Filepreview = ({ params }) => {
                 <div className="flex w-full relative gap-2 justify-between">
                   <div className="flex w-full justify-between rounded-md border-[1px] border-gray-200 px-2 relative">
                     <input
-                      type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+                      type={showPassword ? "text" : "password"}
                       placeholder="Enter password"
-                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                      title="Password must contain at least one digit, one uppercase and one lowercase letter, and be at least 8 characters long"
-                      className={`my-1 w-[85%] rounded-md  p-2 sm:text-sm ${!enablePassword ? "opacity-50 cursor-not-allowed" : ""}`}
+                      className={`my-1 w-[85%] rounded-md  p-2 sm:text-sm ${!enablePassword ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
                       disabled={!enablePassword}
+                      value={password} // Bind value to the password state
+                      onChange={(e) => setPassword(e.target.value)} // Update password state on change
                     />
                     <button
-                      onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                      onClick={() => setShowPassword(!showPassword)}
                       className="text-xl"
                     >
                       {showPassword ? (
@@ -162,8 +184,17 @@ const Filepreview = ({ params }) => {
                     </button>
                   </div>
                   <button
-                    onClick={copyPlaceholderText}
-                    className={`text-xl flex items-center ${!enablePassword ? "opacity-50 cursor-not-allowed" : ""}`}
+                    onClick={() => {
+                      // Call saveinfo function with password if it's enabled
+                      if (enablePassword) {
+                        saveinfo(file, file.fileUrl, password);
+                      } else {
+                        saveinfo(file, file.fileUrl);
+                      }
+                      copyPlaceholderText();
+                    }}
+                    className={`text-xl flex items-center ${!enablePassword ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     disabled={!enablePassword}
                   >
                     <a
@@ -188,7 +219,7 @@ const Filepreview = ({ params }) => {
                   htmlFor="UserEmail"
                   className="block font-medium text-gray-700 p-2"
                 >
-                  Short Url
+                  Enter Email
                 </label>
 
                 <div className="flex w-full rounded-md border-[1px] border-gray-200 relative">
