@@ -22,14 +22,14 @@ const Banner = () => {
                 className="block w-full rounded bg-gray-400 px-12 py-3 text-sm font-medium text-white shadow hover:bg-gray-400/80  sm:w-auto"
                 href="#"
               >
-                Get Started
+                Start sharing 
               </Link>
 
               <Link
                 className="block w-full rounded px-12 py-3 text-sm font-medium text-gray-600 shadow hover:text-gray-400 sm:w-auto"
                 href="#"
               >
-                Learn More
+                Learn More.
               </Link>
             </div>
           </div>
