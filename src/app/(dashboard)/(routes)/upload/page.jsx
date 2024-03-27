@@ -5,9 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { FileInput, Label } from "flowbite-react";
 import AlertMsg from "../../_components/Alert";
 import { app } from "../../../../../firbaseConfig";
-import { getFirestore } from "firebase/firestore";
-import { useUser } from "@clerk/nextjs";
-import { doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import {
   getStorage,
   ref,
@@ -18,6 +16,7 @@ import Progressbar from "../../_components/Progressbar";
 import Success from "../../_components/Success";
 import { randomStringGenerator } from "@/app/_utils/Randomstring";
 import { useRouter } from "next/navigation"; // Import the useRouter hook
+import Filepreview from "./Filepreview"; // Import Filepreview component
 
 const Upload = () => {
   const [fileSizeExceed, setFileSizeExceed] = useState(false);
@@ -142,11 +141,10 @@ const Upload = () => {
         <div className="p-4 w-fit mx-auto">
           <button
             disabled={isDownloadDisabled}
-            className={`group relative rounded-lg inline-block overflow-hidden border ${
-              isDownloadDisabled
+            className={`group relative rounded-lg inline-block overflow-hidden border ${isDownloadDisabled
                 ? "bg-gray-300 cursor-not-allowed"
                 : "border-indigo-600"
-            } px-8 py-3 focus:outline-none focus:ring`}
+              } px-8 py-3 focus:outline-none focus:ring`}
             onClick={() => upploadbtnclick(file)}
           >
             <span className="absolute inset-x-0 rounded- bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
@@ -168,6 +166,7 @@ const Upload = () => {
           </>
         )}
       </div>
+      {docid && <Filepreview docid={docid} />}
     </>
   );
 };

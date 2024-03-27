@@ -1,13 +1,13 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { app } from "../../../../../../firbaseConfig";
 import { MdOutlineContentCopy } from "react-icons/md";
 import Image from "next/image";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import { useUser } from "@clerk/nextjs"; // Import the useUser hook
 
-const Filepreview = ({ params }) => {
+const Filepreview = ({ docid, params }) => {
   const db = getFirestore(app);
   const [file, setFile] = useState();
   const [placeholderText, setPlaceholderText] = useState("");
@@ -15,7 +15,7 @@ const Filepreview = ({ params }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [enablePassword, setEnablePassword] = useState(false);
   const [password, setPassword] = useState(""); // State to manage password input
-
+  const { user } = useUser(); // Initialize the useUser hook
   useEffect(() => {
     params?.fileId && getfileinfo();
   }, []);
@@ -40,7 +40,7 @@ const Filepreview = ({ params }) => {
     }, 3000);
   };
 
-  const saveinfo = async (file, downloadURL, password) => {
+  const saveinfo = async (file, downloadURL) => {
     const fileInfo = {
       fileName: file.name,
       fileSize: file.size,
@@ -166,7 +166,7 @@ const Filepreview = ({ params }) => {
                     <input
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter password"
-                      className={`my-1 w-[85%] rounded-md  p-2 sm:text-sm ${!enablePassword ? "opacity-50 cursor-not-allowed" : ""
+                      className={`my-1 w-fit] rounded-md  p-2 sm:text-sm ${!enablePassword ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                       disabled={!enablePassword}
                       value={password} // Bind value to the password state
@@ -202,6 +202,7 @@ const Filepreview = ({ params }) => {
                       href="#"
                     >
                       <span className="absolute inset-x-0 bottom-0 h-[2px] bg-indigo-600 transition-all group-hover:h-full group-active:bg-indigo-500"></span>
+
                       <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white">
                         save
                       </span>
