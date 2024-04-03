@@ -15,7 +15,11 @@ const Filler = () => {
             say the least."
           </p>
         </div>
-
+        <div>
+          <h2 className="text-xl text-black  text-center py-4 dark:text-white font-bold sm:text-4xl">
+            Tech stack used to make this.
+          </h2>
+        </div>
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           <a
             className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-pink-500/10"

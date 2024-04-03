@@ -18,7 +18,7 @@ const Header = () => {
     logoSrc = "/Logo/Origami_w.svg";
   } else {
     logoSrc =
-      theme === "system" ? "/Logo/Origami_b.svg" : "/Logo/Origami_w.svg";
+      theme === "system" ? "/Logo/Origami_w.svg" : "/Logo/Origami_b.svg";
     logoClassNames += " invert"; // Add "invert" class when theme is neither dark nor light
   }
 
