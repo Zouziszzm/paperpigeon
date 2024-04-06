@@ -43,7 +43,7 @@ const Filler = () => {
             </svg>
 
             <h2 className="mt-4 text-gray-800 dark:text-white text-xl font-bold">
-              Digital campaigns
+              Digital campaign
             </h2>
 
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
