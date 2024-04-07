@@ -10,7 +10,7 @@ const Header = () => {
 
   // Define the image source based on the theme mode
   let logoSrc;
-  let logoClassNames = "h-[50px] w-[50px]"; // Default class names
+  var logoClassNames = "h-[50px] w-[50px]"; // Default class names
 
   if (theme === "dark") {
     logoSrc = "/Logo/Origami_b.svg";

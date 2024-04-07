@@ -1,12 +1,13 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
-import { serverTimestamp } from "firebase/firestore";
+import { doc, onSnapshot, serverTimestamp, updateDoc } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useState } from "react";
-import { db } from "@/firebase";
+import { db, storage } from "@/firebase";
 import { addDoc } from "firebase/firestore";
 import DropzoneComp from "react-dropzone";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 function Dropzone() {
   const [loading, setLoading] = useState(false);
   const { isLoaded, isSignedIn, user } = useUser();
@@ -36,6 +37,16 @@ function Dropzone() {
       size: selectedFile.size,
     });
 
+    const imageRef = ref(storage, `users/${user.id}/files/${docRef.id}`);
+    
+    uploadBytes(imageRef, selectedFile).then(async (snapshot) => {
+      const downloadUrl = await getDownloadURL(imageRef);
+
+      await updateDoc(doc(db,"users",user.id,"files",docRef.id),{
+        downloadUrl:downloadUrl,
+      })
+
+    });
     setLoading(false);
   };
   const maxSize = 20971520;
