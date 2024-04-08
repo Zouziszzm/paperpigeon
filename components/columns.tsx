@@ -1,28 +1,28 @@
 "use client";
 
+import { COLOR_EXTENSION_MAP } from "@/constants";
 import { FileType } from "@/typings";
 import { ColumnDef } from "@tanstack/react-table";
-import {defaultStyles, FileIcon} from "react-file-icon"
 import Link from "next/link";
 import prettyBytes from "pretty-bytes";
-
+import { FileIcon, defaultStyles } from "react-file-icon";
 export const columns: ColumnDef<FileType>[] = [
   {
-    accessorKey:"type",
-    header:"Type",
-    cell:({renderValue,...props})=>{
+    accessorKey: "type",
+    header: "Type",
+    cell: ({ renderValue, ...props }) => {
       const type = renderValue() as string;
       const extension: string = type.split("/")[1];
-      return(
-      <div className="w-10">
+      return (
+        <div className="w-10">
           <FileIcon
             extension={extension}
             labelColor={COLOR_EXTENSION_MAP[extension]}
             {...defaultStyles[extension]}
           />
         </div>
-      )
-    }
+      );
+    },
   },
   {
     accessorKey: "filename",
@@ -43,13 +43,15 @@ export const columns: ColumnDef<FileType>[] = [
     accessorKey: "downloadURL",
     header: "Link",
     cell: ({ renderValue, ...props }) => {
-      <Link
-        href={renderValue() as string}
-        target="_blank"
-        className="underline text-blue-500 hover:text-blue-600"
-      >
-        Download
-      </Link>;
+      return (
+        <a
+          href={renderValue() as string}
+          target="_blank"
+          className="text-blue-500 hover:text-blue-600 cursor-pointer"
+        >
+          Download
+        </a>
+      );
     },
   },
 ];
