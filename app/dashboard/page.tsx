@@ -19,7 +19,7 @@ async function Dashboard() {
   }));
   console.log(skeletionFiles);
   return (
-    <div>
+    <div className="pb-12">
       <Header />
       <DropzoneComp />
       <section className="container space-y-5">
