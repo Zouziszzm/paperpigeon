@@ -12,13 +12,13 @@ const Filler = () => {
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <div className="mx-auto max-w-lg text-center">
           <h2 className="text-3xl text-black dark:text-white font-bold sm:text-4xl">
-            How about entrusting your data to App you've created?
+            How about entrusting your data to App you&apos;ve created?
           </h2>
 
           <p className="mt-4 text-gray-600 dark:text-gray-300">
-            This is a straightforward example where I've learned to utilize
-            Firebase storage for data storage – a testament to my progress, to
-            say the least."
+            This is a straightforward example where I&apos;ve learned to utilize
+            Firebase storage for data storage –&quot; a testament to my progress, to
+            say the least.&quot;
           </p>
         </div>
         <div>
@@ -91,7 +91,7 @@ const Filler = () => {
             </h2>
 
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              Simple React hook to create a HTML5-compliant drag'n'drop zone for
+              Simple React hook to create a HTML5-compliant drag&apos;n&apos;drop zone for
               files.
             </p>
           </span>
@@ -105,7 +105,7 @@ const Filler = () => {
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
               A small, fast and scalable bearbones state-management solution
               using simplified flux principles. Has a comfy API based on hooks,
-              isn't boilerplatey or opinionated.
+              isn&apos;t boilerplatey or opinionated.
             </p>
           </span>
         </div>
