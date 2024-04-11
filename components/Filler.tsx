@@ -1,5 +1,11 @@
 import React from "react";
-
+import { FaReact } from "react-icons/fa";
+import { TbBrandNextjs } from "react-icons/tb";
+import { SiAuthelia } from "react-icons/si";
+import { SiTailwindcss } from "react-icons/si";
+import { IoLogoFirebase } from "react-icons/io5";
+import { TbSquareArrowDown } from "react-icons/tb";
+import { GiMatterStates } from "react-icons/gi";
 const Filler = () => {
   return (
     <section className="bg-white dark:bg-primary text-white">
@@ -21,197 +27,87 @@ const Filler = () => {
           </h2>
         </div>
         <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <a
-            className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-pink-500/10"
-            href="#"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-10 text-pink-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg>
+          <span className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-blue-600/10">
+            <div className="flex p-2">
+              {" "}
+              <FaReact className="size-10 text-blue-600" />
+              <TbBrandNextjs className="size-10 text-blue-600" />
+            </div>
 
             <h2 className="mt-4 text-gray-800 dark:text-white text-xl font-bold">
-              Digital campaign
+              React.js/Next.js
             </h2>
 
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo
-              possimus adipisci distinctio alias voluptatum blanditiis
-              laudantium.
+              Used Next.js a framework of react.js used mostly for creating
+              server side applications.
             </p>
-          </a>
+          </span>
 
-          <a
-            className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-pink-500/10"
-            href="#"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-10 text-pink-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg>
+          <span className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-blue-600/10">
+            <SiAuthelia className="size-10 text-blue-600" />
 
             <h2 className="mt-4 text-xl text-gray-800 dark:text-white font-bold">
-              Digital campaigns
+              Clerk Authentication
             </h2>
 
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo
-              possimus adipisci distinctio alias voluptatum blanditiis
-              laudantium.
+              ClerkJS is JavaScript library for building user management and
+              authentication.
             </p>
-          </a>
+          </span>
 
-          <a
-            className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-pink-500/10"
-            href="#"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-10 text-pink-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg>
+          <span className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-blue-600/10">
+            <SiTailwindcss className="size-10 text-blue-600" />
 
             <h2 className="mt-4 text-xl font-bold text-gray-800 dark:text-white">
-              Digital campaigns
+              Shadcn/ TailwindCss
             </h2>
 
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo
-              possimus adipisci distinctio alias voluptatum blanditiis
-              laudantium.
+              Beautifully designed components that you can copy and paste into
+              your apps. Accessible. Customizable.
             </p>
-          </a>
+          </span>
 
-          <a
-            className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-pink-500/10"
-            href="#"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-10 text-pink-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg>
+          <span className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-blue-600/10">
+            <IoLogoFirebase className="size-10 text-blue-600" />
+            <h2 className="mt-4 text-xl font-bold text-gray-800 dark:text-white">
+              Google Firebase
+            </h2>
+
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+              Cloud Storage for Firebase stores your files in a Google Cloud
+              Storage bucket, making them accessible through both Firebase and
+              Google Cloud.
+            </p>
+          </span>
+
+          <span className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10  hover:shadow-blue-600/10">
+            <TbSquareArrowDown className="size-10 text-blue-600"/>
 
             <h2 className="mt-4 text-xl font-bold text-gray-800 dark:text-white">
-              Digital campaigns
+              React Drop zone
             </h2>
 
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo
-              possimus adipisci distinctio alias voluptatum blanditiis
-              laudantium.
+              Simple React hook to create a HTML5-compliant drag'n'drop zone for
+              files.
             </p>
-          </a>
+          </span>
 
-          <a
-            className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10  hover:shadow-pink-500/10"
-            href="#"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-10 text-pink-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg>
-
+          <span className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-blue-600/10">
+            <GiMatterStates className="size-10 text-blue-600" />
             <h2 className="mt-4 text-xl font-bold text-gray-800 dark:text-white">
-              Digital campaigns
+              Zustand
             </h2>
 
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo
-              possimus adipisci distinctio alias voluptatum blanditiis
-              laudantium.
+              A small, fast and scalable bearbones state-management solution
+              using simplified flux principles. Has a comfy API based on hooks,
+              isn't boilerplatey or opinionated.
             </p>
-          </a>
-
-          <a
-            className="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/50 dark:hover:border-pink-500/10 hover:shadow-pink-500/10"
-            href="#"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="size-10 text-pink-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-              />
-            </svg>
-
-            <h2 className="mt-4 text-xl font-bold text-gray-800 dark:text-white">
-              Digital campaigns
-            </h2>
-
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo
-              possimus adipisci distinctio alias voluptatum blanditiis
-              laudantium.
-            </p>
-          </a>
+          </span>
         </div>
       </div>
     </section>

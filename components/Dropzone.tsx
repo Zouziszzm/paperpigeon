@@ -1,13 +1,19 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
-import { doc, onSnapshot, serverTimestamp, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  onSnapshot,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useState } from "react";
 import { db, storage } from "@/firebase";
 import { addDoc } from "firebase/firestore";
 import DropzoneComp from "react-dropzone";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import toast from "react-hot-toast";
 function Dropzone() {
   const [loading, setLoading] = useState(false);
   const { isLoaded, isSignedIn, user } = useUser();
@@ -27,6 +33,7 @@ function Dropzone() {
     if (loading) return;
     if (!user) return;
     setLoading(true);
+    const toastId = toast.loading("uploading..");
     const docRef = await addDoc(collection(db, "users", user.id, "files"), {
       userId: user.id,
       filename: selectedFile.name,
@@ -38,15 +45,18 @@ function Dropzone() {
     });
 
     const imageRef = ref(storage, `users/${user.id}/files/${docRef.id}`);
-    
+
     uploadBytes(imageRef, selectedFile).then(async (snapshot) => {
       const downloadUrl = await getDownloadURL(imageRef);
 
-      await updateDoc(doc(db,"users",user.id,"files",docRef.id),{
-        downloadUrl:downloadUrl,
-      })
-
+      await updateDoc(doc(db, "users", user.id, "files", docRef.id), {
+        downloadUrl: downloadUrl,
+      });
     });
+    toast.success("Upload Complete", {
+      id: toastId,
+    });
+
     setLoading(false);
   };
   const maxSize = 20971520;
@@ -78,7 +88,9 @@ function Dropzone() {
               {isDragActive && !isDragReject && "Drop to upload this file!"}
               {isDragReject && "Filetype not accepted, sorry!"}
               {isFileTooLarge && (
-                <div className="text-danger mt-2">File is to Large. Try again with a smaller file.</div>
+                <div className="text-danger mt-2">
+                  File is to Large. Try again with a smaller file.
+                </div>
               )}
             </div>
           </section>

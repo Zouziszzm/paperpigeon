@@ -61,3 +61,6 @@
 ::-webkit-scrollbar {
     display: none;
 }
+::-webkit-scrollbar-thumb {
+    background-color: #888;  /* Change the color as per your preference */
+}

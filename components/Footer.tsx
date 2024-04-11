@@ -48,7 +48,7 @@ const Footer = () => {
         <ul className="mt-12 flex justify-center gap-6 md:gap-8">
           <li>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/al-farhaan-khan-inamdar/"
               rel="noreferrer"
               target="_blank"
               className="text-gray-700 transition hover:text-gray-700/75"
@@ -60,7 +60,7 @@ const Footer = () => {
 
           <li>
             <a
-              href="#"
+              href="https://twitter.com/Zouziszzm"
               rel="noreferrer"
               target="_blank"
               className="text-gray-700 transition hover:text-gray-700/75"
@@ -72,7 +72,7 @@ const Footer = () => {
 
           <li>
             <a
-              href="#"
+              href="https://github.com/Zouziszzm"
               rel="noreferrer"
               target="_blank"
               className="text-gray-700 transition hover:text-gray-700/75"
@@ -84,7 +84,7 @@ const Footer = () => {
 
           <li>
             <a
-              href="#"
+              href="https://www.instagram.com/mzzsiz/"
               rel="noreferrer"
               target="_blank"
               className="text-gray-700 transition hover:text-gray-700/75"
