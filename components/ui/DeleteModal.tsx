@@ -61,7 +61,7 @@ export function DeleteModal() {
         <DialogHeader>
           <DialogTitle>Share link</DialogTitle>
           <DialogDescription>
-            Anyone who has this link will be able to view this.
+            Are you sure you want to delete this ?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="w-full sm:justify-start">
