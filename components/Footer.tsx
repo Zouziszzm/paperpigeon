@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
 
         <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500">
-          What to know more about me and my projects p[lease check out my socials bellow
+          What to know more about me and my projects please check out my socials bellow
         </p>
 
         <ul className="mt-12 flex justify-center gap-6 md:gap-8">
