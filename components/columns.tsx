@@ -1,11 +1,10 @@
-"use client";
-
 import { COLOR_EXTENSION_MAP } from "@/constants";
 import { FileType } from "@/typings";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import prettyBytes from "pretty-bytes";
 import { FileIcon, defaultStyles } from "react-file-icon";
+
 export const columns: ColumnDef<FileType>[] = [
   {
     accessorKey: "type",
@@ -18,7 +17,7 @@ export const columns: ColumnDef<FileType>[] = [
           <FileIcon
             extension={extension}
             labelColor={COLOR_EXTENSION_MAP[extension]}
-            {...defaultStyles[extension]}
+            {...(defaultStyles as any)[extension]}
           />
         </div>
       );
@@ -55,3 +54,4 @@ export const columns: ColumnDef<FileType>[] = [
     },
   },
 ];
+
